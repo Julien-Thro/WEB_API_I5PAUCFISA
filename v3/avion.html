@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>SkyTrackerPro</title>
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/avion.css">
+  <script src="js/script.js" defer></script>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <link rel="icon" type="image/x-icon" href="img/icon.ico">
+
+
+</head>
+
+<body>
+  <header>
+    <p>SkyTracker Pro</p>
+    <nav id="menu-nav-bandeau"></nav>
+  </header>
+
+  <main>
+    <div id="avions-zone-recherche">
+      <!-- Form Numéro avion -->
+      <form id="vol-form">
+        <label for="vol-input">Entrez le numéro de vol :</label>
+        <input type="text" id="vol-input" placeholder="Ex. AAL1004" required>
+        <button id="refresh-button" type="button" onclick="XXXXXXXXXXXXX()">Rechercher</button>
+      </form>
+      <!-- Form double aéroport -->
+      <form id="aeroport-form">
+        <label for="aeroport-depart-input">Départ :</label>
+        <input type="text" id="aeroport-depart-input" placeholder="Ex. CDG" required>
+        <label for="aeroport-arrivee-input">Arrivée :</label>
+        <input type="text" id="aeroport-arrivee-input" placeholder="Ex. EL PRAT" required>
+        <button id="refresh-button" type="button" onclick="XXXXXXXXXXXXX()">Rechercher</button>
+      </form>
+    </div>
+
+    <br>
+
+    <div id="main-container">
+      <div id="avion-table">
+
+      </div>
+      <div id="second-container">
+        <div id="avion-infos-arrivee">
+
+          <table border="1">
+            <tr>
+              <td>Avion</td>
+              <td>
+                <strong>Name:</strong> American Airlines<br>
+                <strong>Number:</strong> 1004
+              </td>
+            </tr>
+            <tr>
+              <td>Aéroport</td>
+              <td>
+                <strong>Airport:</strong> Dallas/Fort Worth International<br>
+                <strong>Terminal:</strong> A<br>
+                <strong>Gate:</strong> A22<br>
+                <strong>Baggage:</strong> A17
+              </td>
+            </tr>
+            <tr>
+              <td>Time</td>
+              <td>
+                <strong>Scheduled:</strong> 2019-12-12T04:20:00+00:00<br>
+                <strong>Delay:</strong> 0<br>
+                <strong>Estimated:</strong> 2019-12-12T04:20:00+00:00
+              </td>
+            </tr>
+          </table>
+
+        </div>
+        <div id="map"></div>
+      </div>
+    </div>
+
+  </main>
+
+  <footer>
+    <div id="footer-content"></div>
+  </footer>
+
+</body>
+
+</html>

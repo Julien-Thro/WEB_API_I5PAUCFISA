@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SkyTrackerPro</title>
+  <link rel="icon" type="image/x-icon" href="img/icon.ico">
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/villes.css">
+  <script src="js/script.js" defer></script>
+  <script src="js/villes.js" defer></script>
+
+<script>
+ 
+  let map;
+  
+  function fetchWeather() {
+    var city = document.getElementById('city-input').value;
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', 'weather.php?city=' + encodeURIComponent(city), true);
+    xhr.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var response = JSON.parse(this.responseText);
+            document.getElementById('villes-temperature').textContent = response.temp + '°C';
+            document.getElementById('villes-humidite').textContent = response.humidity + '%';
+            document.getElementById('villes-longitude').textContent = response.lon;
+            document.getElementById('villes-latitude').textContent = response.lat;
+            document.getElementById('villes-vent').textContent = response.speed + 'Km/h, ' + getWindDirection(response.deg);
+            document.getElementById('villes-meteo').textContent = response.desc;
+  
+            function getWindDirection(degrees) {
+              const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+              const index = Math.round(degrees / 45) % 8;
+              return directions[index];
+            }
+
+      var chiffre_centaines = Math.floor(response.id / 100);
+      var chiffre_temp = Math.floor(response.temp / 10);
+
+      var src_img_meteo = 'https://openweathermap.org/img/wn/';
+      var src_img_temp = 'img/villes-icons/temp/';
+
+      switch (chiffre_centaines) {
+        case 2: src_img_meteo = src_img_meteo.concat('11d@2x.png'); break;
+        case 3: src_img_meteo = src_img_meteo.concat('09d@2x.png'); break;
+        case 5:
+          switch (response.id) {
+            case 500: src_img_meteo = src_img_meteo.concat('10d@2x.png'); break;
+            case 501: src_img_meteo = src_img_meteo.concat('10d@2x.png'); break;
+            case 502: src_img_meteo = src_img_meteo.concat('10d@2x.png'); break;
+            case 503: src_img_meteo = src_img_meteo.concat('10d@2x.png'); break;
+            case 504: src_img_meteo = src_img_meteo.concat('10d@2x.png'); break;
+            case 511: src_img_meteo = src_img_meteo.concat('13d@2x.png'); break;
+            case 520: src_img_meteo = src_img_meteo.concat('09d@2x.png'); break;
+            case 521: src_img_meteo = src_img_meteo.concat('09d@2x.png'); break;
+            case 522: src_img_meteo = src_img_meteo.concat('09d@2x.png'); break;
+            case 531: src_img_meteo = src_img_meteo.concat('09d@2x.png'); break;
+            default: console.log("Erreur sur meteo_id"); break;
+          }
+          break;
+        case 6: src_img_meteo = src_img_meteo.concat('13d@2x.png'); break;
+        case 7: src_img_meteo = src_img_meteo.concat('50d@2x.png'); break;
+        case 8:
+          switch (response.id) {
+            case 800: src_img_meteo = src_img_meteo.concat('01d@2x.png'); break;
+            case 801: src_img_meteo = src_img_meteo.concat('02d@2x.png'); break;
+            case 802: src_img_meteo = src_img_meteo.concat('03d@2x.png'); break;
+            case 803: src_img_meteo = src_img_meteo.concat('04d@2x.png'); break;
+            case 804: src_img_meteo = src_img_meteo.concat('04d@2x.png'); break;
+            default: console.log("Erreur sur meteo_id"); break;
+          }
+          break;
+        default: console.log("Erreur sur chiffre_centaines"); break;
+      }
+      if (chiffre_temp <= 0) {
+        src_img_temp = src_img_temp.concat('1.png');
+      } else {
+        switch (chiffre_temp) {
+          case 1: src_img_temp = src_img_temp.concat('2.png'); break;
+          case 2: src_img_temp = src_img_temp.concat('3.png'); break;
+          case 3: src_img_temp = src_img_temp.concat('4.png'); break;
+          case 4: src_img_temp = src_img_temp.concat('5.png'); break;
+          default: src_img_temp = src_img_temp.concat('6.png'); break;
+        }}
+
+      const imgElementMeteo = document.createElement('img');
+      imgElementMeteo.src = src_img_meteo;
+      const divElementMeteo = document.getElementById('villes-img-meteo');
+      divElementMeteo.innerHTML = '';
+      divElementMeteo.appendChild(imgElementMeteo);
+
+      const imgElementTemp = document.createElement('img');
+      imgElementTemp.src = src_img_temp;
+      const divElementTemp = document.getElementById('villes-img-temperature');
+      divElementTemp.innerHTML = '';
+      divElementTemp.appendChild(imgElementTemp);
+
+      const imgElementHum = document.createElement('img');
+      imgElementHum.src = 'img/water/1.png';
+      const divElementHum = document.getElementById('villes-img-humidite');
+      divElementHum.innerHTML = '';
+      divElementHum.appendChild(imgElementHum);
+
+      const imgElementLat = document.createElement('img');
+      imgElementLat.src = 'img/latitude.webp';
+      const divElementLat = document.getElementById('villes-img-latitude');
+      divElementLat.innerHTML = '';
+      divElementLat.appendChild(imgElementLat);
+
+      const imgElementLon = document.createElement('img');
+      imgElementLon.src = 'img/longitude.webp';
+      const divElementLon = document.getElementById('villes-img-longitude');
+      divElementLon.innerHTML = '';
+      divElementLon.appendChild(imgElementLon);
+
+      const imgElementWind = document.createElement('img');
+      imgElementWind.src = 'img/vent.png';
+      const divElementWind = document.getElementById('villes-img-vent');
+      divElementWind.innerHTML = '';
+      divElementWind.appendChild(imgElementWind);
+
+      if (map) { map.remove(); }
+            map = L.map('map').setView([response.lat, response.lon], 7);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '© OpenStreetMap contributors' }).addTo(map);
+            L.marker([response.lat, response.lon]).addTo(map);
+        }
+    };
+    xhr.send();
+  }
+</script>
+
+</head>
+
+<body>
+  <header>
+    <p>SkyTracker Pro</p>
+    <nav id="menu-nav-bandeau"></nav>
+  </header>
+
+  <main>
+    <section>
+      <form method="get" action="bdd.php" id="weather-form">
+        <input type="text" id="city-input" placeholder="Entrez le nom d'une ville">
+        <button type="button" id="bouton-ok" onClick="fetchWeather()">Rechercher</button>
+      </form>
+    </section>
+
+    <div id="villes-tableau-data">
+      <table>
+        <tr>
+          <th>Température 🌡️</th>
+          <th>Météo ⛅</th>
+          <th>Vent 🌪</th>
+          <th>Humidité 💧</th>
+          <th>Latitude 🌏</th>
+          <th>Longitude 🌎</th>
+        </tr>
+        <tr>
+          <td id="villes-img-temperature"><img src='img/wtf.webp'></td>
+          <td id="villes-img-meteo"><img src='img/wtf.webp'></td>
+          <td id="villes-img-vent"><img src='img/wtf.webp'></td>
+          <td id="villes-img-humidite"><img src='img/wtf.webp'></td>
+          <td id="villes-img-latitude"><img src='img/wtf.webp'></td>
+          <td id="villes-img-longitude"><img src='img/wtf.webp'></td>
+        </tr>
+        <tr>
+          <td id="villes-temperature">-</td>
+          <td id="villes-meteo">-</td>
+          <td id="villes-vent">-</td>
+          <td id="villes-humidite">-</td>
+          <td id="villes-latitude">-</td>
+          <td id="villes-longitude">-</td>
+        </tr>
+      </table>
+    </div>
+
+    <div id="space">
+      <div id="map"></div>
+    </div>
+
+
+  </main>
+
+  <footer>
+    <div id="footer-content"></div>
+  </footer>
+
+</body>
+
+</html>

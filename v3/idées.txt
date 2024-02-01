@@ -1,0 +1,15 @@
+améliorer les boutons du bandeau supérieur (meilleures animations ? couleurs aléatoires ? effet rgb ?)
+
+rajouter 2 *modes graphiques* sur le site : un mode couleurs (sdtyle graphioque défini, et un mode accesibilité, ou l'on peut choisir entre le mode clair et le mode sombre (noir ou blanc))
+
+rajouter une animation "accepter les cookies" quand on arrive sur le site
+
+créer un logo + l'afficvher sur les pages (s'inspirer de l'icon déjà présent)
+
+rajouter des animations au site (image, texte, son...), afin de le rendre dynamique (ex: les vielles charues)
+
+=============================================================================
+
+mettre en palce une BDD qui recense toutes les call API (GET, POST) que l'on execute
+
+faire un système de login (user, password), et stocké les infos dans la BD

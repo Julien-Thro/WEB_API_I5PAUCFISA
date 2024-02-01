@@ -1,0 +1,40 @@
+div#avions-zone-recherche{
+    display: flex;
+}
+
+div#avions-zone-recherche form{
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    margin-left: 10%;
+}
+
+div#main-container{
+    display: inline-flex;
+    width: 100%;
+    height: auto;
+}
+
+div#main-container div#avion-table{
+    width: 50%;
+}
+
+div#second-container{
+    width: 50%;
+}
+
+div#second-container div#avion-infos-arrivee{
+    height: 25vw;
+}
+
+div#second-container div#map{
+    height: 25vw;
+    width: 40vw; margin: 0 auto;
+    -webkit-box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 3px 3px rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 5px;
+    border-radius: 2px;
+}
+
+#tableau tr{
+    display: inline-flex;
+}

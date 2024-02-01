@@ -1,0 +1,89 @@
+@import url('https://fonts.googleapis.com/css?family=Poppins:900i');
+
+body,
+main,
+footer,
+header,
+p {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  overflow-x: hidden;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+p {
+  color: rgb(0, 0, 0);
+}
+
+header {
+  color: white;
+  text-align: center;
+}
+
+header p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 3vw;
+}
+
+/* ----------------------------- */
+nav {
+  background-color: #1f1f1f;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: auto;
+  font-family: 'Poppins';
+}
+
+nav a {
+  text-decoration: none;
+  color: #ddd;
+  background-color: #000000;
+  padding: 10px 20px;
+  margin: 5px;
+  margin-left: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  transition: transform 0.5s, background-color 0.4s;
+  height: auto;
+}
+
+nav a:hover {
+  transform: scale(1.1);
+  background-color: #ffffff;
+  color: #000000;
+  border: 1px solid #000000;
+  ;
+}
+
+/* ----------------------------- */
+footer {
+  background-color: #222;
+  width: 100%;
+  position: relative;
+  bottom: 0px;
+  text-align: center;
+  color: #ddd;
+  padding-top: 2vh;
+  padding-bottom: 2vh;
+  font-family: 'Poppins';
+}
+
+footer a {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: #ababab;
+}
+
+
+/* ----------------------------------- */

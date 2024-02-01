@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Météo de la Ville</title>
+    <script>
+        function fetchWeather() {
+            var city = document.getElementById('city-input').value;
+            var xhr = new XMLHttpRequest();
+            xhr.open('GET', 'weather.php?city=' + encodeURIComponent(city), true);
+            xhr.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var response = JSON.parse(this.responseText);
+                    document.getElementById('temperature').textContent = 'Température: ' + response.temp + '°C';
+                    document.getElementById('humidity').textContent = 'Humidité: ' + response.humidity + '%';
+                }
+            };
+            xhr.send();
+        }
+    </script>
+</head>
+<body>
+    <h1>Météo de la Ville</h1>
+    <input type="text" id="city-input" placeholder="Entrez le nom d'une ville">
+    <button onclick="fetchWeather()">Obtenir la météo</button>
+
+    <div id="temperature"> temp </div>
+    <div id="humidity"> humidity </div>
+    <div id="longitude"> long </div>
+    <div id="latitude"> lat </div>
+    <div id="wind-speed"> vent speed </div>
+    <div id="wind-direction"> vent direction </div>
+    <div id="meteo-id"> id </div>
+    <div id="meteo-desc"> desc </div>
+</body>
+</html>
